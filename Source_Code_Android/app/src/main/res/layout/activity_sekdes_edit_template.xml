@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Formulasi Dokumen Resmi"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1A237E"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Jenis Surat" android:textStyle="bold"/>
+        <EditText android:id="@+id/etJenisSurat" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Misal: Surat Keterangan Usaha" android:layout_marginBottom="12dp" android:background="@android:drawable/editbox_background_normal"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Format Kode/Nomor Surat" android:textStyle="bold"/>
+        <EditText android:id="@+id/etKodeSurat" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Misal: 470/ /409.102.05/" android:layout_marginBottom="12dp" android:background="@android:drawable/editbox_background_normal"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Teks Paragraf Pembuka Naskah" android:textStyle="bold"/>
+        <EditText android:id="@+id/etIsiPembuka" android:layout_width="match_parent" android:layout_height="120dp" android:gravity="top|start" android:hint="Masukkan teks pengantar surat..." android:inputType="textMultiLine" android:layout_marginBottom="12dp" android:background="@android:drawable/editbox_background_normal" android:padding="8dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Teks Paragraf Penutup Naskah" android:textStyle="bold"/>
+        <EditText android:id="@+id/etIsiPenutup" android:layout_width="match_parent" android:layout_height="100dp" android:gravity="top|start" android:hint="Demikian surat keterangan ini..." android:inputType="textMultiLine" android:layout_marginBottom="24dp" android:background="@android:drawable/editbox_background_normal" android:padding="8dp"/>
+
+        <Button
+            android:id="@+id/btnSimpanTemplate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Perbarui Struktur Template"
+            android:backgroundTint="#1A237E"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+    </LinearLayout>
+</ScrollView>

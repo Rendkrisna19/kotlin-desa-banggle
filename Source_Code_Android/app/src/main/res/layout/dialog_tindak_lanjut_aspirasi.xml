@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvDetailAduanWarga"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Detail aduan..."
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pilih Status Tindak Lanjut Baru:"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:textSize="14sp"
+        android:layout_marginBottom="6dp"/>
+
+    <RadioGroup
+        android:id="@+id/rgStatusTindakLanjut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <RadioButton
+            android:id="@+id/rbStatusDiproses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diproses"
+            android:layout_marginEnd="16dp"/>
+
+        <RadioButton
+            android:id="@+id/rbStatusSelesai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selesai"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tulis Tanggapan Resmi Perangkat Desa:"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:textSize="14sp"
+        android:layout_marginBottom="6dp"/>
+
+    <EditText
+        android:id="@+id/etTanggapanAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contoh: Perbaikan jalan dijadwalkan senin esok oleh PU"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:lines="3"/>
+</LinearLayout>

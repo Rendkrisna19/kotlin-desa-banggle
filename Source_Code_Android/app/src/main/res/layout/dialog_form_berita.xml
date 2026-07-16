@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <!-- Kolom Input Judul Berita -->
+    <EditText
+        android:id="@+id/etJudulBeritaInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan judul berita/pengumuman"
+        android:inputType="textCapSentences"
+        android:maxLength="150"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Kolom Input Isi Berita (Multiline) -->
+    <EditText
+        android:id="@+id/etIsiBeritaInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="top"
+        android:hint="Tuliskan isi informasi pengumuman desa secara lengkap di sini..."
+        android:inputType="textMultiLine"
+        android:lines="6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etJudulBeritaInput" />
+
+    <!-- Tombol Simpan Berita -->
+    <Button
+        android:id="@+id/btnSimpanBerita"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="PUBLIKASIKAN BERITA"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etIsiBeritaInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

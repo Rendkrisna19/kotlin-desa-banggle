@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#1A237E"
+    android:padding="32dp">
+
+    <ImageView
+        android:id="@+id/ivSplashLogo"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/logo_blitar"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Logo Desa Banggle" />
+
+    <TextView
+        android:id="@+id/tvSplashNama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kantor Desa Banggle"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sistem Pelayanan Administrasi Digital"
+        android:textColor="#B0BEC5"
+        android:textSize="13sp"
+        android:gravity="center"/>
+
+</LinearLayout>

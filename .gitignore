@@ -1,0 +1,10 @@
+/vendor/
+/api_desa/vendor/
+
+# SANGAT PENTING: Jangan pernah meng-upload file kredensial rahasia ke GitHub!
+credentials_oauth.json
+credentials_gdrive.json
+token.json
+desa-banggle-app-*.json
+*.json
+!composer.json

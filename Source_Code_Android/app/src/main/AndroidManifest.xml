@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/logo_blitar"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_blitar"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Ovylia"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+
+        <activity android:name=".SplashActivity" android:exported="true"
+            android:theme="@style/Theme.Ovylia"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".LoginActivity" android:exported="false" />
+
+        <activity android:name=".PengajuanSuratActivity" android:exported="false" />
+
+        <activity
+            android:name=".MenuUtamaActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".MenuRtRwActivity"
+            android:exported="true"/>
+
+        <activity android:name=".RegisterActivity" android:exported="false" />
+        <activity android:name=".InformasiSuratActivity" android:exported="false" />
+        <activity android:name=".KelolaPengajuanActivity" android:exported="false" android:theme="@style/Theme.Material3.DayNight" />
+        <activity android:name=".CekStatusSuratActivity" android:exported="false" />
+        <activity android:name=".NotifikasiStatusActivity" android:exported="false" />
+        <activity android:name=".KirimKeluhanActivity" android:exported="false" />
+        <activity android:name=".BeriPenilaianActivity" android:exported="false" />
+        <activity android:name=".DetailPengajuanActivity" android:exported="false" />
+        <activity android:name=".LihatPengajuanActivity" android:exported="false" />
+
+        <activity android:name=".RiwayatVerifikasiActivity" android:exported="false" />
+
+        <activity android:name=".MenuAdminActivity" android:exported="false"/>
+        <activity android:name=".AdminLihatPengajuanActivity" android:exported="false" />
+        <activity android:name=".AdminVerifikasiWargaActivity" android:exported="false" />
+        <activity android:name=".AdminJenisSuratActivity" android:exported="false" />
+        <activity android:name=".AdminSyaratSuratActivity" android:exported="false" />
+        <activity android:name=".AdminProsesSuratActivity" android:exported="false" />
+        <activity android:name=".AdminSahkanSuratActivity" android:exported="false" />
+        <activity android:name=".AdminLaporanPelayananActivity" android:exported="false" />
+        <activity android:name=".AdminKelolaAspirasiActivity" android:exported="false" />
+        <activity android:name=".AdminKelolaBeritaActivity" android:exported="false" />
+        <activity android:name=".SekdesSuratVerifiedActivity" android:exported="false" />
+        <activity android:name=".SekdesDashboardActivity" android:exported="true"/>
+        <activity android:name=".SekdesDetailSuratActivity" android:exported="false" />
+        <activity android:name=".SekdesEditTemplateActivity" android:exported="false" />
+        <activity
+            android:name=".KadesDashboardActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+    </application>
+</manifest>
