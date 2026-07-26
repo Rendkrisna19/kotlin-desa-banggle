@@ -2,10 +2,16 @@
 header("Content-Type: application/json; charset=UTF-8");
 include_once "koneksi.php";
 
-// Ambil pengajuan yang masih berstatus Menunggu untuk RT/RW
-$query = "SELECT p.id_pengajuan AS id, p.username, p.jenis_surat, p.keperluan, p.status_rtrw AS status, b.url_file AS dokumen 
+$query = "SELECT 
+            p.id_pengajuan AS id, 
+            p.username, 
+            p.jenis_surat, 
+            p.keperluan, 
+            p.status_rtrw AS status,
+            (SELECT url_file FROM berkas_pengajuan WHERE id_pengajuan = p.id_pengajuan AND nama_syarat = 'Foto KTP' LIMIT 1) AS file_ktp,
+            (SELECT url_file FROM berkas_pengajuan WHERE id_pengajuan = p.id_pengajuan AND nama_syarat = 'Kartu Keluarga (KK)' LIMIT 1) AS file_kk,
+            (SELECT url_file FROM berkas_pengajuan WHERE id_pengajuan = p.id_pengajuan AND nama_syarat = 'Berkas Utama' LIMIT 1) AS dokumen
           FROM pengajuan p 
-          LEFT JOIN berkas_pengajuan b ON p.id_pengajuan = b.id_pengajuan 
           WHERE p.status_rtrw = 'Menunggu' 
           ORDER BY p.id_pengajuan DESC";
 
@@ -20,7 +26,12 @@ if ($result) {
             "jenis_surat" => $row['jenis_surat'],
             "keperluan" => $row['keperluan'],
             "status" => $row['status'],
-            "dokumen" => $row['dokumen']
+            "dokumen" => $row['dokumen'],
+            "file_ktp" => $row['file_ktp'],
+            "file_kk" => $row['file_kk']
+
+
+            
         );
     }
     
