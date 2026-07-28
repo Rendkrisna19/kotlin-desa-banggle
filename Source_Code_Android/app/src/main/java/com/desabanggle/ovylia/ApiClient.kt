@@ -7,10 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    // URL API Backend (Sesuaikan dengan IP komputer yang menjalankan XAMPP/Laragon)
-    // URL API Backend (10.0.2.2 digunakan khusus untuk Android Studio Emulator ke localhost)
-    // Karena foldernya ada di C:\laragon\www\aplikasi-kotlin, maka URL-nya harus lengkap
-    const val BASE_URL = "http://10.0.2.2/aplikasi-kotlin/api_desa/"
+    // URL API Backend Production (Hostinger Shared Hosting)
+    const val BASE_URL = "https://darkcyan-dunlin-225762.hostingersite.com/"
 
     val instance: ApiService by lazy {
         // Interceptor untuk melihat log request/response di Logcat

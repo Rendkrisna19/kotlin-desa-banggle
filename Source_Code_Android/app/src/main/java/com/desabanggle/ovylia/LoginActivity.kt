@@ -54,6 +54,8 @@ class LoginActivity : AppCompatActivity() {
                 val body = response.body()
                 if (response.isSuccessful && body?.status == "success") {
                     simpanSesiLaluPindah(u, body.role ?: "masyarakat")
+                } else if (body?.message != null && body.message.contains("menunggu", ignoreCase = true)) {
+                    Toast.makeText(this@LoginActivity, body.message, Toast.LENGTH_LONG).show()
                 } else {
                     // Jika gagal login Warga, coba login Perangkat Desa
                     cobaLoginPerangkat(u, p)

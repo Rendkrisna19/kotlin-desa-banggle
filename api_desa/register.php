@@ -54,9 +54,9 @@ try {
     // Hash password sebelum disimpan ke database
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert data warga baru ke tabel users terpadu
+    // Insert data warga baru ke tabel users terpadu (status_akun default aktif)
     $query = "INSERT INTO users (username, password, nama_lengkap, nik, role, status_akun)
-              VALUES ('$username_esc', '$hashed_password', '$nama_lengkap_esc', '$nik_esc', 'masyarakat', 'menunggu')";
+              VALUES ('$username_esc', '$hashed_password', '$nama_lengkap_esc', '$nik_esc', 'masyarakat', 'aktif')";
 
     if (mysqli_query($koneksi, $query)) {
         echo json_encode(["status" => "success", "message" => "Pendaftaran berhasil! Silakan masuk dengan akun Anda."]);

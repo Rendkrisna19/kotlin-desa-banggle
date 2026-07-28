@@ -63,43 +63,78 @@ $pdf->setPrintFooter(false);
 $pdf->SetProtection(array('print'), '', 'kades_secret_banggle', 3, null);
 
 $pdf->AddPage();
-$pdf->SetFont('helvetica', 'B', 14);
-$pdf->Cell(0, 10, 'PEMERINTAH KABUPATEN BLITAR', 0, 1, 'C');
-$pdf->Cell(0, 10, 'KECAMATAN KANIGORO', 0, 1, 'C');
-$pdf->SetFont('helvetica', 'B', 16);
-$pdf->Cell(0, 10, 'DESA BANGGLE', 0, 1, 'C');
-$pdf->Line(10, 40, 200, 40);
+// === KOP SURAT ===
+$pdf->SetFont('times', 'B', 14);
+$pdf->Cell(0, 6, 'PEMERINTAH KABUPATEN BLITAR', 0, 1, 'C');
+$pdf->Cell(0, 6, 'KECAMATAN KANIGORO', 0, 1, 'C');
+$pdf->SetFont('times', 'B', 16);
+$pdf->Cell(0, 6, 'KEPALA DESA BANGGLE', 0, 1, 'C');
+$pdf->SetFont('times', '', 11);
+$pdf->Cell(0, 6, 'Jln. Raya Desa Banggle No. 1, Kanigoro, Blitar, Kode Pos 66171', 0, 1, 'C');
+
+// Garis Pembatas Kop Surat (Double Line)
+$pdf->SetLineWidth(1);
+$pdf->Line(15, 38, 195, 38);
+$pdf->SetLineWidth(0.3);
+$pdf->Line(15, 39.5, 195, 39.5);
 
 $pdf->Ln(10);
-$pdf->SetFont('helvetica', 'BU', 12);
-$pdf->Cell(0, 10, strtoupper($jenis_surat), 0, 1, 'C');
-$pdf->SetFont('helvetica', '', 11);
-$pdf->Cell(0, 5, 'Nomor : ' . $kode_surat, 0, 1, 'C');
+// === JUDUL SURAT ===
+$pdf->SetFont('times', 'BU', 12);
+// Gunakan judul dari jenis surat, default SURAT KETERANGAN
+$judul_surat = (stripos($jenis_surat, 'Surat') !== false) ? strtoupper($jenis_surat) : 'SURAT KETERANGAN';
+$pdf->Cell(0, 6, $judul_surat, 0, 1, 'C');
+$pdf->SetFont('times', '', 11);
+$pdf->Cell(0, 6, 'Nomor : ' . $kode_surat, 0, 1, 'C');
 
+$pdf->Ln(8);
+
+// === PARAGRAF PEMBUKA ===
+$pdf->SetFont('times', '', 12);
+// Menggunakan margin dan indentasi standar surat dinas
+$pdf->setCellMargins(5, 0, 5, 0);
+$pembuka = $template ? $template['isi_pembuka'] : "Yang bertanda tangan dibawah ini, kami Kepala Desa Banggle, Kecamatan Kanigoro, Kabupaten Blitar, menerangkan dengan sebenarnya kepada :";
+$pdf->MultiCell(0, 7, "       " . $pembuka, 0, 'J');
+
+$pdf->Ln(3);
+
+// === DATA PENDUDUK ===
+$keterangan_lain = $pengajuan['keterangan'] ?? 'Bahwa orang tersebut di atas adalah benar-benar penduduk Desa Banggle. Demikian agar menjadi periksa adanya.';
+
+$pdf->SetX(20); $pdf->Cell(45, 7, 'Nama Lengkap', 0, 0); $pdf->Cell(5, 7, ':', 0, 0); $pdf->Cell(0, 7, $nama_pemohon, 0, 1);
+$pdf->SetX(20); $pdf->Cell(45, 7, 'NIK', 0, 0); $pdf->Cell(5, 7, ':', 0, 0); $pdf->Cell(0, 7, $nik_pemohon, 0, 1);
+$pdf->SetX(20); $pdf->Cell(45, 7, 'Alamat', 0, 0); $pdf->Cell(5, 7, ':', 0, 0); $pdf->Cell(0, 7, 'Desa Banggle, Kec. Kanigoro, Kab. Blitar', 0, 1);
+$pdf->SetX(20); $pdf->Cell(45, 7, 'Dipergunakan untuk', 0, 0); $pdf->Cell(5, 7, ':', 0, 0); $pdf->Cell(0, 7, $keperluan, 0, 1);
+
+// Keterangan Lain-lain (Bisa panjang jadi pakai MultiCell)
+$pdf->SetX(20); 
+$pdf->Cell(45, 7, 'Keterangan lain-lain', 0, 0); 
+$pdf->Cell(5, 7, ':', 0, 0); 
+$pdf->MultiCell(115, 7, $keterangan_lain, 0, 'J', false, 1, $pdf->GetX(), $pdf->GetY());
+
+$pdf->Ln(3);
+
+// === PARAGRAF PENUTUP ===
+$pdf->SetX(15);
+$penutup = $template ? $template['isi_penutup'] : "Demikian Surat Keterangan ini dibuat untuk dipergunakan sebagaimana mestinya dan untuk menjadikan periksa adanya.";
+$pdf->MultiCell(0, 7, "       " . $penutup, 0, 'J');
+
+// === BLOK TANDA TANGAN ===
 $pdf->Ln(10);
-$pdf->MultiCell(0, 8, $isi_pembuka);
-$pdf->Ln(5);
-$pdf->Cell(50, 8, 'Nama', 0, 0); $pdf->Cell(0, 8, ': ' . $nama_pemohon, 0, 1);
-$pdf->Cell(50, 8, 'NIK', 0, 0); $pdf->Cell(0, 8, ': ' . $nik_pemohon, 0, 1);
-$pdf->Cell(50, 8, 'Keperluan', 0, 0); $pdf->Cell(0, 8, ': ' . $keperluan, 0, 1);
+$pdf->Cell(110, 6, '', 0, 0);
+$pdf->Cell(70, 6, 'Banggle, ' . date('d-m-Y'), 0, 1, 'C');
+$pdf->Cell(110, 6, '', 0, 0);
+$pdf->Cell(70, 6, 'Kepala Desa Banggle', 0, 1, 'C');
 
-$pdf->Ln(5);
-$pdf->MultiCell(0, 8, $isi_penutup);
+// Ruang kosong untuk TTE / QR / Stempel
+$pdf->SetXY(135, $pdf->GetY() + 3);
+$pdf->SetFont('times', 'I', 10);
+$pdf->Cell(50, 18, 'Ditandatangani secara Elektronik', 0, 1, 'C'); // Placeholder TTE
 
-// TTE KADES (Static Box as Signature)
-$pdf->Ln(15);
-$pdf->Cell(120, 8, '', 0, 0);
-$pdf->Cell(70, 8, 'Banggle, ' . date('d M Y'), 0, 1, 'C');
-$pdf->Cell(120, 8, '', 0, 0);
-$pdf->Cell(70, 8, 'Kepala Desa Banggle', 0, 1, 'C');
-
-// Draw a box for TTE QR/Signature
-$pdf->SetXY(130, $pdf->GetY() + 5);
-$pdf->Cell(70, 30, 'TTE KADES TERVALIDASI', 1, 1, 'C');
-
-$pdf->Ln(5);
-$pdf->Cell(120, 8, '', 0, 0);
-$pdf->Cell(70, 8, 'NAMA KADES', 0, 1, 'C');
+$pdf->Ln(2);
+$pdf->Cell(110, 6, '', 0, 0);
+$pdf->SetFont('times', 'BU', 12);
+$pdf->Cell(70, 6, 'NUR HUDA, S.Pd.', 0, 1, 'C');
 
 // Simpan sementara ke lokal
 $upload_dir = 'uploads/';
