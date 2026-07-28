@@ -13,7 +13,11 @@ define('GDRIVE_FOLDER_ID', '1tZDPDV0PA1Id0cMxxzyBKRoXw_C0M8sQ');
  * Mendapatkan Google Drive Client menggunakan OAuth 2.0
  */
 function getDriveClient() {
-    require_once __DIR__ . '/../vendor/autoload.php';
+    if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+        require_once __DIR__ . '/vendor/autoload.php';
+    } elseif (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+        require_once __DIR__ . '/../vendor/autoload.php';
+    }
     
     $client = new Google\Client();
     $client->setApplicationName('Aplikasi Desa Banggle');
@@ -143,8 +147,9 @@ function checkDriveConnection(): array {
     if (GDRIVE_FOLDER_ID === 'ISI_DENGAN_ID_FOLDER_GOOGLE_DRIVE_ANDA') {
         return ['connected' => false, 'message' => 'GDRIVE_FOLDER_ID belum diisi di google_drive_helper.php'];
     }
-    if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
-        return ['connected' => false, 'message' => 'Composer belum dijalankan. Jalankan: composer require google/apiclient:^2.0'];
+    $vendorExists = file_exists(__DIR__ . '/vendor/autoload.php') || file_exists(__DIR__ . '/../vendor/autoload.php');
+    if (!$vendorExists) {
+        return ['connected' => false, 'message' => 'Composer vendor/autoload.php tidak ditemukan'];
     }
     
     // Coba load koneksi

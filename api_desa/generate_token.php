@@ -1,5 +1,9 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} else {
+    require_once __DIR__ . '/../vendor/autoload.php';
+}
 
 // Pastikan dijalankan dari Terminal (CLI)
 if (php_sapi_name() != 'cli') {

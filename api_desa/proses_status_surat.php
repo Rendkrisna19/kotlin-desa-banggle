@@ -7,11 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-$id_pengajuan = $_POST['id_pengajuan'] ?? '';
-$status = $_POST['status'] ?? ''; 
-$catatan = $_POST['catatan'] ?? '';
+$id_pengajuan = $_POST['id_pengajuan'] ?? ($_POST['id_surat'] ?? ($_POST['id'] ?? ''));
+$status       = $_POST['status'] ?? ($_POST['status_baru'] ?? ''); 
+$catatan      = $_POST['catatan'] ?? ($_POST['catatan_rtrw'] ?? ($_POST['catatan_admin'] ?? ''));
 
-if (empty($id_pengajuan) || empty($status)) {
+if ($id_pengajuan === '' || $status === '') {
     echo json_encode(["status" => "error", "message" => "Parameter tidak lengkap"]);
     exit();
 }
@@ -20,15 +20,19 @@ $id_pengajuan = mysqli_real_escape_string($koneksi, $id_pengajuan);
 $status = mysqli_real_escape_string($koneksi, $status);
 $catatan = mysqli_real_escape_string($koneksi, $catatan);
 
-$status_admin = ($status === 'Disetujui') ? 'Terverifikasi' : 'Ditolak';
+$status_rtrw  = (stripos($status, 'Disetujui') !== false) ? 'Disetujui' : 'Ditolak';
+$status_admin = (stripos($status, 'Disetujui') !== false) ? 'Terverifikasi' : 'Ditolak';
 
 $query = "UPDATE pengajuan 
-          SET status_admin = '$status_admin', 
+          SET status_rtrw  = '$status_rtrw',
+              catatan_rtrw = '$catatan',
+              tanggal_rtrw = NOW(),
+              status_admin = '$status_admin', 
               catatan_admin = '$catatan',
               tanggal_admin = NOW()";
 
-if ($status_admin === 'Ditolak') {
-    $query .= ", status_akhir = 'Ditolak Admin'";
+if ($status_rtrw === 'Ditolak') {
+    $query .= ", status_akhir = 'Ditolak RT/RW'";
 } else {
     $query .= ", status_akhir = 'Menunggu Sekdes'";
 }

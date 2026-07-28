@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="4dp"
-                    android:text="Unduh KTP"
+                    android:text="Lihat KTP"
                     android:backgroundTint="#00796B"
                     android:textColor="#FFFFFF"/>
 
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="4dp"
-                    android:text="Unduh KK"
+                    android:text="Lihat KK"
                     android:backgroundTint="#00796B"
                     android:textColor="#FFFFFF"/>
             </LinearLayout>

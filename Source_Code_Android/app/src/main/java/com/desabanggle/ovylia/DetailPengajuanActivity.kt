@@ -118,7 +118,8 @@ class DetailPengajuanActivity : AppCompatActivity() {
                     Toast.makeText(this@DetailPengajuanActivity, "Verifikasi berhasil dikirim!", Toast.LENGTH_SHORT).show()
                     finish() // Menutup halaman dan kembali ke daftar list utama
                 } else {
-                    Toast.makeText(this@DetailPengajuanActivity, "Gagal menyimpan verifikasi", Toast.LENGTH_SHORT).show()
+                    val pesanError = res?.message ?: "Gagal menyimpan verifikasi"
+                    Toast.makeText(this@DetailPengajuanActivity, pesanError, Toast.LENGTH_LONG).show()
                 }
             }
 

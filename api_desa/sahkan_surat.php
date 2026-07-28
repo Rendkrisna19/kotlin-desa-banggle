@@ -3,11 +3,14 @@ header('Content-Type: application/json; charset=utf-8');
 include 'koneksi.php';
 
 // Cek dan Load Autoload Composer (Untuk TCPDF dan Google Drive)
-if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
-    echo json_encode(["status" => "error", "message" => "Composer belum diinstall. Harap jalankan: composer require tecnickcom/tcpdf"]);
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} elseif (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+} else {
+    echo json_encode(["status" => "error", "message" => "Composer vendor/autoload.php tidak ditemukan di hosting."]);
     exit();
 }
-require_once __DIR__ . '/../vendor/autoload.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(["status" => "error", "message" => "Metode tidak diizinkan"]);
