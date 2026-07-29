@@ -57,16 +57,22 @@ $pdf->Cell(50, 8, 'Keperluan', 0, 0); $pdf->Cell(0, 8, ': ' . $keperluan, 0, 1);
 $pdf->Ln(5);
 $pdf->MultiCell(0, 8, $isi_penutup);
 
-// TTE KADES DRAFT
+// === BLOK TANDA TANGAN ===
 $pdf->Ln(15);
-$pdf->Cell(120, 8, '', 0, 0);
-$pdf->Cell(70, 8, 'Banggle, ......................', 0, 1, 'C');
-$pdf->Cell(120, 8, '', 0, 0);
-$pdf->Cell(70, 8, 'Kepala Desa Banggle', 0, 1, 'C');
+$pdf->Cell(120, 6, '', 0, 0);
+$pdf->Cell(70, 6, 'Banggle, ' . date('d-m-Y'), 0, 1, 'C');
+$pdf->Cell(120, 6, '', 0, 0);
+$pdf->Cell(70, 6, 'Kepala Desa Banggle', 0, 1, 'C');
 
-$pdf->Ln(20);
-$pdf->Cell(120, 8, '', 0, 0);
-$pdf->Cell(70, 8, '................................', 0, 1, 'C');
+$pdf->Ln(5);
+$pdf->SetFont('Arial', 'I', 10);
+$pdf->Cell(120, 12, '', 0, 0);
+$pdf->Cell(70, 12, 'Ditandatangani secara Elektronik', 0, 1, 'C');
+
+$pdf->Ln(5);
+$pdf->SetFont('Arial', 'BU', 12);
+$pdf->Cell(120, 6, '', 0, 0);
+$pdf->Cell(70, 6, 'NUR HUDA, S.Pd.', 0, 1, 'C');
 
 // Output to browser directly
 $pdf->Output('I', 'Draf_Surat_' . $id_pengajuan . '.pdf');

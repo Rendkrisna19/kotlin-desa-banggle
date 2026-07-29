@@ -10,19 +10,41 @@ object ApiClient {
     // URL API Backend Production (Hostinger Shared Hosting)
     const val BASE_URL = "https://darkcyan-dunlin-225762.hostingersite.com/"
 
+    // Fungsi untuk mem-bypass error SSL / CertPathValidatorException
+    private fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
+        try {
+            val trustAllCerts = arrayOf<javax.net.ssl.TrustManager>(
+                object : javax.net.ssl.X509TrustManager {
+                    override fun checkClientTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {}
+                    override fun checkServerTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {}
+                    override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> = arrayOf()
+                }
+            )
+
+            val sslContext = javax.net.ssl.SSLContext.getInstance("SSL")
+            sslContext.init(null, trustAllCerts, java.security.SecureRandom())
+            val sslSocketFactory = sslContext.socketFactory
+
+            val builder = OkHttpClient.Builder()
+            builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as javax.net.ssl.X509TrustManager)
+            builder.hostnameVerifier { _, _ -> true }
+            return builder
+        } catch (e: Exception) {
+            throw RuntimeException(e)
+        }
+    }
+
     val instance: ApiService by lazy {
-        // Interceptor untuk melihat log request/response di Logcat
         val logging = HttpLoggingInterceptor { message ->
             android.util.Log.d("OkHttp", message)
         }
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        // Konfigurasi Client untuk menangani upload file (Timeout lebih lama)
-        val client = OkHttpClient.Builder()
+        val client = getUnsafeOkHttpClient()
             .addInterceptor(logging)
-            .connectTimeout(60, TimeUnit.SECONDS) // 60 detik untuk koneksi
-            .readTimeout(60, TimeUnit.SECONDS)    // 60 detik untuk baca data
-            .writeTimeout(60, TimeUnit.SECONDS)   // 60 detik untuk upload
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()

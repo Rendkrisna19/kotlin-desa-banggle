@@ -46,10 +46,15 @@ if ($action === 'tambah') {
 
     // Cek apakah Google Drive sudah dikonfigurasi
     $use_drive = false;
-    if (file_exists(__DIR__ . '/google_drive_helper.php')) {
-        require_once 'google_drive_helper.php';
-        $drive_check = checkDriveConnection();
-        $use_drive   = $drive_check['connected'];
+    try {
+        if (file_exists(__DIR__ . '/google_drive_helper.php')) {
+            require_once 'google_drive_helper.php';
+            $drive_check = checkDriveConnection();
+            $use_drive   = $drive_check['connected'];
+        }
+    } catch (Throwable $e) {
+        // Jika terjadi Fatal Error (misal: class Google_Client tidak ada), otomatis abaikan Drive dan pakai lokal
+        $use_drive = false;
     }
 
     $files_map = [
@@ -152,19 +157,23 @@ if ($action === 'tambah') {
     }
 
     // Hapus file dari Drive juga jika ada
-    if (file_exists(__DIR__ . '/google_drive_helper.php')) {
-        require_once 'google_drive_helper.php';
-        $drive_check = checkDriveConnection();
-        if ($drive_check['connected']) {
-            $berkas_query = mysqli_query($koneksi,
-                "SELECT drive_file_id FROM berkas_pengajuan WHERE id_pengajuan='$id_surat'"
-            );
-            while ($b = mysqli_fetch_assoc($berkas_query)) {
-                if (!empty($b['drive_file_id'])) {
-                    deleteDriveFile($b['drive_file_id']);
+    try {
+        if (file_exists(__DIR__ . '/google_drive_helper.php')) {
+            require_once 'google_drive_helper.php';
+            $drive_check = checkDriveConnection();
+            if ($drive_check['connected']) {
+                $berkas_query = mysqli_query($koneksi,
+                    "SELECT drive_file_id FROM berkas_pengajuan WHERE id_pengajuan='$id_surat'"
+                );
+                while ($b = mysqli_fetch_assoc($berkas_query)) {
+                    if (!empty($b['drive_file_id'])) {
+                        deleteDriveFile($b['drive_file_id']);
+                    }
                 }
             }
         }
+    } catch (Throwable $e) {
+        // Abaikan error Drive dan lanjutkan ke query DELETE database
     }
 
     if (mysqli_query($koneksi, "DELETE FROM pengajuan WHERE id_pengajuan='$id_surat'")) {

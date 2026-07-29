@@ -19,6 +19,10 @@ function getDriveClient() {
         require_once __DIR__ . '/../vendor/autoload.php';
     }
     
+    if (!class_exists('Google\Client')) {
+        throw new Exception("Class Google\Client tidak ditemukan. Pastikan folder vendor/ sudah ter-upload utuh.");
+    }
+
     $client = new Google\Client();
     $client->setApplicationName('Aplikasi Desa Banggle');
     $client->setScopes([Google\Service\Drive::DRIVE_FILE]);

@@ -12,6 +12,11 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     exit();
 }
 
+if (!class_exists('TCPDF')) {
+    echo json_encode(["status" => "error", "message" => "Class TCPDF tidak ditemukan. Pastikan folder vendor/ diupload secara UTUH."]);
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(["status" => "error", "message" => "Metode tidak diizinkan"]);
     exit();
@@ -151,16 +156,20 @@ $pdf->Output(__DIR__ . '/' . $file_path, 'F');
 // Upload ke Google Drive
 $use_drive = false;
 $dokumen_drive_url = null;
-if (file_exists(__DIR__ . '/google_drive_helper.php')) {
-    require_once 'google_drive_helper.php';
-    $drive_check = checkDriveConnection();
-    if ($drive_check['connected']) {
-        $result = uploadToDrive(__DIR__ . '/' . $file_path, $file_name, 'application/pdf');
-        if ($result['success']) {
-            $dokumen_drive_url = $result['drive_url'];
-            unlink(__DIR__ . '/' . $file_path); // Hapus lokal jika sukses masuk Drive
+try {
+    if (file_exists(__DIR__ . '/google_drive_helper.php')) {
+        require_once 'google_drive_helper.php';
+        $drive_check = checkDriveConnection();
+        if ($drive_check['connected']) {
+            $result = uploadToDrive(__DIR__ . '/' . $file_path, $file_name, 'application/pdf');
+            if ($result['success']) {
+                $dokumen_drive_url = $result['drive_url'];
+                unlink(__DIR__ . '/' . $file_path); // Hapus lokal jika sukses masuk Drive
+            }
         }
     }
+} catch (Throwable $e) {
+    // Abaikan error Drive dan simpan surat di lokal
 }
 
 // Update status_akhir dan dokumen_hasil
