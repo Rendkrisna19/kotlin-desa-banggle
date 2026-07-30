@@ -21,6 +21,7 @@ class CekStatusSuratActivity : AppCompatActivity() {
     private lateinit var badgeStatus: TextView
     private lateinit var tvCatatanAdmin: TextView
     private lateinit var btnUnduhSurat: Button
+    private lateinit var btnBeriPenilaian: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,7 @@ class CekStatusSuratActivity : AppCompatActivity() {
         badgeStatus = findViewById(R.id.badgeStatus)
         tvCatatanAdmin = findViewById(R.id.tvCatatanAdmin)
         btnUnduhSurat = findViewById(R.id.btnUnduhSurat)
+        btnBeriPenilaian = findViewById(R.id.btnBeriPenilaian)
 
         fetchStatus()
     }
@@ -63,8 +65,9 @@ class CekStatusSuratActivity : AppCompatActivity() {
     }
 
     private fun switchStatusInterface(status: String, catatan: String, dokumenHasil: String?, idPengajuan: Int?, jenisSurat: String?) {
-        // Default sembunyikan tombol unduh
+        // Default sembunyikan tombol unduh dan penilaian
         btnUnduhSurat.visibility = View.GONE
+        btnBeriPenilaian.visibility = View.GONE
         
         when (status.lowercase()) {
             "kosong" -> {
@@ -101,9 +104,9 @@ class CekStatusSuratActivity : AppCompatActivity() {
                 
                 if (!dokumenHasil.isNullOrEmpty()) {
                     btnUnduhSurat.visibility = View.VISIBLE
+                    btnBeriPenilaian.visibility = View.VISIBLE
+                    
                     btnUnduhSurat.setOnClickListener {
-                        // Jika URL sudah berisi "https://" = Google Drive URL langsung
-                        // Jika tidak, berarti path lokal: gabungkan dengan BASE_URL
                         val url = if (dokumenHasil.startsWith("http://") || dokumenHasil.startsWith("https://")) {
                             dokumenHasil
                         } else {
@@ -111,8 +114,9 @@ class CekStatusSuratActivity : AppCompatActivity() {
                         }
                         val intentBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         startActivity(Intent.createChooser(intentBrowser, "Buka Dokumen"))
-                        
-                        // Menampilkan Form Penilaian secara otomatis setelah klik Buka Dokumen
+                    }
+                    
+                    btnBeriPenilaian.setOnClickListener {
                         val intentPenilaian = Intent(this@CekStatusSuratActivity, BeriPenilaianActivity::class.java).apply {
                             val sharedPref = getSharedPreferences("SesiLogin", Context.MODE_PRIVATE)
                             val username = sharedPref.getString("username", "") ?: ""

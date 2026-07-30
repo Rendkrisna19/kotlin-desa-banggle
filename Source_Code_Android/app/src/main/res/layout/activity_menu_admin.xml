@@ -126,14 +126,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="✅ Verifikasi Akun Warga Baru"
+                    android:text="✅ Verifikasi Akun Masyarakat Baru"
                     android:textColor="#2E7D32"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Setujui atau tolak pendaftaran warga"
+                    android:text="Setujui atau tolak pendaftaran masyarakat"
                     android:textColor="#4CAF50"
                     android:textSize="12sp"
                     android:layout_marginTop="2dp"/>
@@ -159,7 +159,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📋 Kelola Laporan &amp; Aspirasi Warga"
+                    android:text="📋 Kelola Laporan &amp; Aspirasi Masyarakat"
                     android:textColor="#E65100"
                     android:textStyle="bold"
                     android:textSize="15sp"/>

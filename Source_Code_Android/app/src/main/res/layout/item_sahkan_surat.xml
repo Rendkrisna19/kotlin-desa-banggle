@@ -19,7 +19,7 @@
             android:id="@+id/tvNamaPemohonSah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama Warga Pemohon"
+            android:text="Nama Masyarakat Pemohon"
             android:textStyle="bold"
             android:textColor="#212121"
             android:textSize="16sp"/>

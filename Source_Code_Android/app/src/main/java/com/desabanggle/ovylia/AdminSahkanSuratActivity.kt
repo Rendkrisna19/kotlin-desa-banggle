@@ -71,7 +71,7 @@ class AdminSahkanSuratActivity : AppCompatActivity(), SahkanSuratAdapter.OnSahka
         try {
             val request = DownloadManager.Request(Uri.parse(urlUnduh))
                 .setTitle("Mengunduh $namaFile")
-                .setDescription("Sedang mengunduh dokumen draf surat warga...")
+                .setDescription("Sedang mengunduh dokumen draf surat masyarakat...")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, namaFile)
 

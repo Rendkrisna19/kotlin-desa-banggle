@@ -110,6 +110,16 @@
                 app:backgroundTint="#2E7D32"
                 android:textColor="#FFFFFF"/>
 
+            <Button
+                android:id="@+id/btnBeriPenilaian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⭐ Beri Penilaian"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:backgroundTint="#FFB300"
+                android:textColor="#FFFFFF"/>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

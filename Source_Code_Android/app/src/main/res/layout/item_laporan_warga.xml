@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="Isi aduan atau aspirasi dari warga desa..."
+            android:text="Isi aduan atau aspirasi dari masyarakat desa..."
             android:textColor="#666666"
             android:textSize="14sp"
             android:maxLines="2"

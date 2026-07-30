@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#1A237E"
-        app:title="Semua Pengajuan Surat Warga"
+        app:title="Semua Pengajuan Surat Masyarakat"
         app:titleTextColor="#FFFFFF"/>
 
     <!-- 🔍 KOMPONEN FILTER SPINNER (Drop-down) -->
