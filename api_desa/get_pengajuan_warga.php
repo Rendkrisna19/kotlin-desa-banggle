@@ -22,6 +22,7 @@ if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         $array_data[] = array(
             "id" => (int)$row['id'],
+            "id_pengajuan" => (int)$row['id'],
             "username" => $row['username'],
             "jenis_surat" => $row['jenis_surat'],
             "keperluan" => $row['keperluan'],
@@ -29,9 +30,6 @@ if ($result) {
             "dokumen" => $row['dokumen'],
             "file_ktp" => $row['file_ktp'],
             "file_kk" => $row['file_kk']
-
-
-            
         );
     }
     

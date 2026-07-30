@@ -172,18 +172,27 @@ try {
     // Abaikan error Drive dan simpan surat di lokal
 }
 
-// Update status_akhir dan dokumen_hasil
-$drive_sql = $dokumen_drive_url ? ", dokumen_drive_url = '$dokumen_drive_url'" : "";
+// Cek kolom yang tersedia agar tidak error di versi db lama
+$columns = [];
+$res_cols = mysqli_query($koneksi, "SHOW COLUMNS FROM pengajuan");
+while($col = mysqli_fetch_assoc($res_cols)) {
+    $columns[] = $col['Field'];
+}
 
-$query = "UPDATE pengajuan 
-          SET status_akhir = 'Selesai',
-              status = 'selesai',
-              catatan_sekdes = 'Surat telah disahkan oleh Kepala Desa dengan TTE.',
-              catatan = 'Surat telah disahkan oleh Kepala Desa dengan TTE.',
-              dokumen_hasil = '$file_path',
-              tanggal_sekdes = NOW()
-              $drive_sql
-          WHERE id_pengajuan = '$id_pengajuan'";
+$set_queries = [
+    "status_akhir = 'Selesai'",
+    "dokumen_hasil = '$file_path'"
+];
+
+if (in_array('status', $columns)) $set_queries[] = "status = 'selesai'";
+if (in_array('catatan_sekdes', $columns)) $set_queries[] = "catatan_sekdes = 'Surat telah disahkan oleh Kepala Desa dengan TTE.'";
+if (in_array('catatan', $columns)) $set_queries[] = "catatan = 'Surat telah disahkan oleh Kepala Desa dengan TTE.'";
+if (in_array('tanggal_sekdes', $columns)) $set_queries[] = "tanggal_sekdes = NOW()";
+if (in_array('dokumen_drive_url', $columns) && $dokumen_drive_url) $set_queries[] = "dokumen_drive_url = '$dokumen_drive_url'";
+
+$set_string = implode(", ", $set_queries);
+
+$query = "UPDATE pengajuan SET $set_string WHERE id_pengajuan = '$id_pengajuan'";
 
 if (mysqli_query($koneksi, $query)) {
     $log_query = "INSERT INTO verifikasi (id_pengajuan, username_verifikator, role_verifikator, status_verifikasi, catatan)
