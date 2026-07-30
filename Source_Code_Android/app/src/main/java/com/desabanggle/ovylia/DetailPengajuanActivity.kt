@@ -118,13 +118,21 @@ class DetailPengajuanActivity : AppCompatActivity() {
                     Toast.makeText(this@DetailPengajuanActivity, "Verifikasi berhasil dikirim!", Toast.LENGTH_SHORT).show()
                     finish() // Menutup halaman dan kembali ke daftar list utama
                 } else {
-                    val pesanError = res?.message ?: "Gagal menyimpan verifikasi"
-                    Toast.makeText(this@DetailPengajuanActivity, pesanError, Toast.LENGTH_LONG).show()
+                    val pesanError = res?.message ?: "Gagal menyimpan verifikasi ke database."
+                    androidx.appcompat.app.AlertDialog.Builder(this@DetailPengajuanActivity)
+                        .setTitle("Gagal Update Status")
+                        .setMessage(pesanError)
+                        .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                        .show()
                 }
             }
 
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Toast.makeText(this@DetailPengajuanActivity, "Kesalahan Jaringan: ${t.message}", Toast.LENGTH_SHORT).show()
+                androidx.appcompat.app.AlertDialog.Builder(this@DetailPengajuanActivity)
+                    .setTitle("Kesalahan Jaringan / Server")
+                    .setMessage(t.message)
+                    .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                    .show()
             }
         })
     }

@@ -177,7 +177,9 @@ $drive_sql = $dokumen_drive_url ? ", dokumen_drive_url = '$dokumen_drive_url'" :
 
 $query = "UPDATE pengajuan 
           SET status_akhir = 'Selesai',
+              status = 'selesai',
               catatan_sekdes = 'Surat telah disahkan oleh Kepala Desa dengan TTE.',
+              catatan = 'Surat telah disahkan oleh Kepala Desa dengan TTE.',
               dokumen_hasil = '$file_path',
               tanggal_sekdes = NOW()
               $drive_sql

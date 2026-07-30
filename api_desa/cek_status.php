@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             while ($row = mysqli_fetch_assoc($result)) {
                 // Logika status general mapping ke UI
                 $status = 'pending';
-                if ($row['status_akhir'] === 'Selesai') {
+                if (strtolower(trim($row['status_akhir'])) === 'selesai') {
                     $status = 'selesai';
                 } elseif (stripos($row['status_akhir'], 'tolak') !== false
                        || stripos($row['status_admin'], 'tolak') !== false

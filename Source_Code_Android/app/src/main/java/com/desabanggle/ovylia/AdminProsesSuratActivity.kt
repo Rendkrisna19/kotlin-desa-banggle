@@ -106,13 +106,25 @@ class AdminProsesSuratActivity : AppCompatActivity(), PengajuanSuratAdapter.OnPe
     private fun eksekusiUbahStatus(idPengajuan: Int, statusBaru: String, catatan: String) {
         ApiClient.instance.prosesStatusSurat(idPengajuan, statusBaru, catatan).enqueue(object : Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                if (response.isSuccessful && response.body()?.status == "success") {
+                val res = response.body()
+                if (response.isSuccessful && res?.status == "success") {
                     Toast.makeText(this@AdminProsesSuratActivity, "Status surat berhasil diperbarui: $statusBaru", Toast.LENGTH_SHORT).show()
                     muatDaftarPengajuan() // Refresh antrean list terbaru
+                } else {
+                    val pesanError = res?.message ?: "Gagal mengubah status di database."
+                    androidx.appcompat.app.AlertDialog.Builder(this@AdminProsesSuratActivity)
+                        .setTitle("Gagal Update")
+                        .setMessage(pesanError)
+                        .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                        .show()
                 }
             }
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Toast.makeText(this@AdminProsesSuratActivity, "Gagal mengubah status", Toast.LENGTH_SHORT).show()
+                androidx.appcompat.app.AlertDialog.Builder(this@AdminProsesSuratActivity)
+                    .setTitle("Kesalahan Jaringan")
+                    .setMessage(t.message)
+                    .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                    .show()
             }
         })
     }

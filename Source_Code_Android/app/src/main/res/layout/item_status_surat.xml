@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Jenis Surat -->
+        <TextView
+            android:id="@+id/tvNamaSurat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Surat Keterangan Domisili"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <!-- Tanggal Pengajuan -->
+        <TextView
+            android:id="@+id/tvTanggal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diajukan pada: 18 Mei 2026"
+            android:textColor="#757575"
+            android:textSize="13sp"
+            android:layout_marginTop="2dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_marginVertical="12dp"/>
+
+        <!-- Bagian Pelacakan Status Dinamis -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status Saat Ini: "
+                android:textColor="#212121"
+                android:textSize="14sp"/>
+
+            <!-- Badge Status -->
+            <TextView
+                android:id="@+id/badgeStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Menunggu"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:background="@android:color/darker_gray"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <!-- Catatan dari Admin -->
+        <TextView
+            android:id="@+id/tvCatatanAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Catatan Admin: -"
+            android:textColor="#616161"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:fontStyle="italic"/>
+
+        <!-- Tombol Unduh Surat -->
+        <Button
+            android:id="@+id/btnUnduhSurat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⬇️ Unduh Surat Hasil"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            app:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"/>
+            
+        <Button
+            android:id="@+id/btnBeriPenilaian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⭐ Beri Penilaian"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:backgroundTint="#FFB300"
+            android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

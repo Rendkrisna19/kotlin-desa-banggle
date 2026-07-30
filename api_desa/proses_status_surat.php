@@ -29,12 +29,13 @@ $query = "UPDATE pengajuan
               tanggal_rtrw = NOW(),
               status_admin = '$status_admin', 
               catatan_admin = '$catatan',
-              tanggal_admin = NOW()";
+              tanggal_admin = NOW(),
+              catatan = '$catatan'";
 
 if ($status_rtrw === 'Ditolak') {
-    $query .= ", status_akhir = 'Ditolak RT/RW'";
+    $query .= ", status_akhir = 'Ditolak RT/RW', status = 'ditolak'";
 } else {
-    $query .= ", status_akhir = 'Menunggu Sekdes'";
+    $query .= ", status_akhir = 'Menunggu Sekdes', status = 'diproses'";
 }
 
 $query .= " WHERE id_pengajuan = '$id_pengajuan'";

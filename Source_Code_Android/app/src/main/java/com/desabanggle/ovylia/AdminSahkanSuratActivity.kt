@@ -112,10 +112,13 @@ class AdminSahkanSuratActivity : AppCompatActivity(), SahkanSuratAdapter.OnSahka
                 if (response.isSuccessful && response.body()?.status == "success") {
                     Toast.makeText(this@AdminSahkanSuratActivity, "Surat Berhasil Disahkan secara Digital!", Toast.LENGTH_SHORT).show()
                     muatSuratSiapSah() // Refresh halaman list antrean
+                } else {
+                    val errorMsg = response.body()?.message ?: "Gagal mengesahkan surat."
+                    Toast.makeText(this@AdminSahkanSuratActivity, errorMsg, Toast.LENGTH_LONG).show()
                 }
             }
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Toast.makeText(this@AdminSahkanSuratActivity, "Koneksi bermasalah", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AdminSahkanSuratActivity, "Koneksi bermasalah: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }

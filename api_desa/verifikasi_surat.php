@@ -24,14 +24,15 @@ $catatan_rtrw = mysqli_real_escape_string($koneksi, $catatan_rtrw);
 $query = "UPDATE pengajuan 
           SET status_rtrw = '$status_baru', 
               catatan_rtrw = '$catatan_rtrw',
-              tanggal_rtrw = NOW()";
+              tanggal_rtrw = NOW(),
+              catatan = '$catatan_rtrw'"; // Update kolom legacy
 
 // Jika RT/RW menolak, langsung set status_akhir ke ditolak
 if (strtolower($status_baru) === 'ditolak' || strtolower($status_baru) === 'ditolak rt/rw') {
-    $query .= ", status_akhir = 'Ditolak RT/RW'";
+    $query .= ", status_akhir = 'Ditolak RT/RW', status = 'ditolak'";
 } else {
     // Hack/Fix: Set status_admin dan status_akhir agar flow bisa lanjut ke Sekdes
-    $query .= ", status_admin = 'Terverifikasi', status_akhir = 'Menunggu Sekdes'";
+    $query .= ", status_admin = 'Terverifikasi', status_akhir = 'Menunggu Sekdes', status = 'diproses'";
 }
 
 $query .= " WHERE id_pengajuan = '$id_surat'";
